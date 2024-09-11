@@ -38,6 +38,24 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
+# Provides a resource to create a NAT Gateway
+resource "aws_eip" "nat" {
+    domain = "vpc"
+    tags = {
+        Name = var.tags_nat
+    }
+}
+
+resource "aws_nat_gateway" "k8s-nat" {
+    allocation_id = aws_eip.nat.id 
+    subnet_id = aws_subnet.public_subnet_1.id
+    tags = {
+        Name = var.tags_k8s-nat
+    }
+    depends_on = [aws_internet_gateway.igw]
+}
+
+
 # Provides a resource to create a private route table 
 resource "aws_route_table" "private_rt" {
     vpc_id = aws_vpc.main.id

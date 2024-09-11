@@ -21,10 +21,6 @@ resource "aws_cloudtrail" "security_trail" {
   }
 }
 
-# resource "aws_config_configuration_recorder" "main" {
-#   name     = "config"
-#   role_arn = aws_iam_role.config_role.arn
-# }
 
 resource "aws_sns_topic" "alarm_topic" {
     name = "high-cpu-alarm-topic"
@@ -49,9 +45,5 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   alarm_actions = [
     aws_sns_topic.alarm_topic.arn
   ]
-
-#   dimensions = {
-#     InstanceId = aws_instance.control_plane.id
-#   }
 }
 

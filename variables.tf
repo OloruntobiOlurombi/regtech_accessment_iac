@@ -158,15 +158,6 @@ variable "main_sg_description" {
     default = "Allow TLS inbound traffic and all outbound traffic"
 }
 
-# variable "ec2_instance_role_name" {
-#     type = string 
-#     default = "ec2-instance-role_log"
-# }
-
-# variable "ec2_instance_profile" {
-#     type = string 
-#     default = "ec2-instance-profile_log"
-# }
 
 variable "eks_node_group_profile" {
     type = string 
@@ -186,4 +177,14 @@ variable "eks_node_group_role_name" {
 variable "eks_describe_cluster_policy_name" {
     type = string 
     default = "eks-describe-cluster-policy_log"
+}
+
+variable "tags_nat" {
+    type = string 
+    default = "nat-gateway_eip"
+}
+
+variable "tags_k8s-nat" {
+    type = string 
+    default = "k8s-nat"
 }
