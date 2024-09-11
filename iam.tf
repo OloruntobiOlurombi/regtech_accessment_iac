@@ -226,6 +226,37 @@ resource "aws_kms_key" "eks_encryption_key" {
 }
 
 
+# resource "aws_s3_bucket_policy" "regtech_iac_policy" {
+#   bucket = aws_s3_bucket.regtech_iac.id
+
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect = "Allow"
+#         Principal = {
+#           Service = "cloudtrail.amazonaws.com"
+#         }
+#         Action = "s3:PutObject"
+#         Resource = "${aws_s3_bucket.regtech_iac.arn}/*"
+#         Condition = {
+#           StringEquals = {
+#             "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+#           }
+#         }
+#       },
+#       {
+#         Effect = "Allow"
+#         Principal = {
+#           Service = "cloudtrail.amazonaws.com"
+#         }
+#         Action = "s3:GetBucketAcl"
+#         Resource = aws_s3_bucket.regtech_iac.arn
+#       }
+#     ]
+#   })
+# }
+
 resource "aws_s3_bucket_policy" "regtech_iac_policy" {
   bucket = aws_s3_bucket.regtech_iac.id
 
@@ -237,27 +268,25 @@ resource "aws_s3_bucket_policy" "regtech_iac_policy" {
         Principal = {
           Service = "cloudtrail.amazonaws.com"
         }
-        Action = "s3:PutObject"
-        Resource = "${aws_s3_bucket.regtech_iac.arn}/*"
-        Condition = {
-          StringEquals = {
-            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
-          }
-        }
+        Action = "s3:GetBucketAcl"
+        Resource = "arn:aws:s3:::${aws_s3_bucket.regtech_iac.bucket}"
       },
       {
         Effect = "Allow"
         Principal = {
           Service = "cloudtrail.amazonaws.com"
         }
-        Action = "s3:GetBucketAcl"
-        Resource = aws_s3_bucket.regtech_iac.arn
+        Action = "s3:PutObject"
+        Resource = "arn:aws:s3:::${aws_s3_bucket.regtech_iac.bucket}/AWSLogs/${data.aws_caller_identity.current.account_id}/*"
+        Condition = {
+          StringEquals = {
+            "s3:x-amz-acl" = "bucket-owner-full-control"
+          }
+        }
       }
     ]
   })
 }
-
-
 
 # resource "aws_kms_key" "ebs_encryption_key" {
 #   description             = "KMS key to encrypt EBS volumes"

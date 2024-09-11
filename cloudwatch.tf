@@ -26,6 +26,16 @@ resource "aws_cloudtrail" "security_trail" {
 #   role_arn = aws_iam_role.config_role.arn
 # }
 
+resource "aws_sns_topic" "alarm_topic" {
+    name = "high-cpu-alarm-topic"
+}
+
+resource "aws_sns_topic_subscription" "alarm_subscription" {
+    topic_arn = aws_sns_topic.alarm_topic.arn
+    protocol = "email"
+    endpoint = "oloruntobiolurombi@gmail.com"
+}
+
 resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   alarm_name          = "high_cpu_usage"
   comparison_operator = "GreaterThanThreshold"
@@ -37,7 +47,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   threshold           = "70"
 
   alarm_actions = [
-    "arn:aws:sns:us-east-1:123456789012:my-topic"
+    aws_sns_topic.alarm_topic.arn
   ]
 
   dimensions = {
