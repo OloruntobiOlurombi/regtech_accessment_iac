@@ -186,28 +186,28 @@ resource "aws_iam_role_policy_attachment" "cloudtrail_policy_attachment" {
 
 # IAM Role for AWS Config 
 
-resource "aws_iam_role" "config_role" {
-  name = "config_role"
+# resource "aws_iam_role" "config_role" {
+#   name = "config_role"
 
-  assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": "sts:AssumeRole",
-        "Principal": {
-          "Service": "config.amazonaws.com"
-        },
-        "Effect": "Allow",
-        "Sid": ""
-      }
-    ]
-  })
-}
+#   assume_role_policy = jsonencode({
+#     "Version": "2012-10-17",
+#     "Statement": [
+#       {
+#         "Action": "sts:AssumeRole",
+#         "Principal": {
+#           "Service": "config.amazonaws.com"
+#         },
+#         "Effect": "Allow",
+#         "Sid": ""
+#       }
+#     ]
+#   })
+# }
 
-resource "aws_iam_role_policy_attachment" "config_policy_attachment" {
-  role       = aws_iam_role.config_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRole"
-}
+# resource "aws_iam_role_policy_attachment" "config_policy_attachment" {
+#   role       = aws_iam_role.config_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRole"
+# }
 
 
 # KMS Key Policy for Encryption
