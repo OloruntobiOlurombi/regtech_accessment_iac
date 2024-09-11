@@ -29,7 +29,7 @@ data "aws_ami" "amazon-linux-2" {
 # Provides a EC2 Instance for Control plane
 
 resource "aws_instance" "control_plane" {
- depends_on = ["aws_internet_gateway.igw"]
+ depends_on = [aws_internet_gateway.igw]
 
  ami                         = "${data.aws_ami.amazon-linux-2.id}"
  instance_type               = var.instance_type

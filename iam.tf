@@ -107,7 +107,7 @@ resource "aws_iam_role_policy_attachment" "ec2_container_registry_readonly" {
   role       = aws_iam_role.eks_node_group_role.name
 }
 
-resource "aws_iam_instance_profile" "ec2_instance_profile" {
+resource "aws_iam_instance_profile" "eks_node_instance_profile" {
     name = var.ec2_instance_profile
     role = aws_iam_role.eks_node_group_role.name
 }
