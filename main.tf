@@ -79,7 +79,6 @@ resource "aws_eks_node_group" "eks_node_group" {
     max_size     = 2
     min_size     = 2
   }
-
   update_config {
     max_unavailable = 1
   }
@@ -114,7 +113,6 @@ resource "aws_s3_bucket" "regtech_iac" {
     }
   }
 }
-
 
 # OutPut Resources
 output "endpoint" {
