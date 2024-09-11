@@ -50,8 +50,8 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
     aws_sns_topic.alarm_topic.arn
   ]
 
-  dimensions = {
-    InstanceId = aws_instance.control_plane.id
-  }
+#   dimensions = {
+#     InstanceId = aws_instance.control_plane.id
+#   }
 }
 
