@@ -170,7 +170,7 @@ variable "ec2_instance_profile" {
 
 variable "eks_node_group_profile" {
     type = string 
-    default = "ec2-instance-profile_log"
+    default = "eks-node-group-instance-profile_log"
 }
 
 variable "eks_cluster_role_name" {
