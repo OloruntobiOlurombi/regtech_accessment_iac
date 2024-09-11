@@ -158,15 +158,15 @@ variable "main_sg_description" {
     default = "Allow TLS inbound traffic and all outbound traffic"
 }
 
-variable "ec2_instance_role_name" {
-    type = string 
-    default = "ec2-instance-role_log"
-}
+# variable "ec2_instance_role_name" {
+#     type = string 
+#     default = "ec2-instance-role_log"
+# }
 
-variable "ec2_instance_profile" {
-    type = string 
-    default = "ec2-instance-profile_log"
-}
+# variable "ec2_instance_profile" {
+#     type = string 
+#     default = "ec2-instance-profile_log"
+# }
 
 variable "eks_node_group_profile" {
     type = string 

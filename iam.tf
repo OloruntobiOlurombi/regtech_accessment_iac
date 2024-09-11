@@ -2,30 +2,30 @@
 data "aws_caller_identity" "current" {}
 
 # IAM Role  For EC2
-resource "aws_iam_role" "ec2_instance_role" {
-    name = var.ec2_instance_role_name
+# resource "aws_iam_role" "ec2_instance_role" {
+#     name = var.ec2_instance_role_name
 
-    assume_role_policy = jsonencode({
-        Version = "2012-10-17",
-        Statement = [
-            {
-                Action = "sts:AssumeRole",
-                Effect = "Allow",
-                Principal = {
-                    Service = "ec2.amazonaws.com"
-                }
-            }
-        ]
-    })
-}
+#     assume_role_policy = jsonencode({
+#         Version = "2012-10-17",
+#         Statement = [
+#             {
+#                 Action = "sts:AssumeRole",
+#                 Effect = "Allow",
+#                 Principal = {
+#                     Service = "ec2.amazonaws.com"
+#                 }
+#             }
+#         ]
+#     })
+# }
 
 # Policies For EC2 IAM Role
 
 # Attach Policies 
-resource "aws_iam_role_policy_attachment" "ec2_full_access" {
-    role = aws_iam_role.ec2_instance_role.name
-    policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-}
+# resource "aws_iam_role_policy_attachment" "ec2_full_access" {
+#     role = aws_iam_role.ec2_instance_role.name
+#     policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+# }
 
 # resource "aws_iam_role_policy_attachment" "ec2_read_only_access" {
 #     role = aws_iam_role.ec2_instance_role.name 
@@ -33,10 +33,10 @@ resource "aws_iam_role_policy_attachment" "ec2_full_access" {
 # }
 
 # Create an Instance Profile (for attaching the role to an EC2 instance)
-resource "aws_iam_instance_profile" "ec2_instance_profile" {
-    name = var.ec2_instance_profile
-    role = aws_iam_role.ec2_instance_role.name
-}
+# resource "aws_iam_instance_profile" "ec2_instance_profile" {
+#     name = var.ec2_instance_profile
+#     role = aws_iam_role.ec2_instance_role.name
+# }
 
 # IAM Role for EKS Cluster Plane 
 
@@ -225,37 +225,6 @@ resource "aws_kms_key" "eks_encryption_key" {
   description = "KMS key for EKS secret encryption"
 }
 
-
-# resource "aws_s3_bucket_policy" "regtech_iac_policy" {
-#   bucket = aws_s3_bucket.regtech_iac.id
-
-#   policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Effect = "Allow"
-#         Principal = {
-#           Service = "cloudtrail.amazonaws.com"
-#         }
-#         Action = "s3:PutObject"
-#         Resource = "${aws_s3_bucket.regtech_iac.arn}/*"
-#         Condition = {
-#           StringEquals = {
-#             "aws:SourceAccount" = data.aws_caller_identity.current.account_id
-#           }
-#         }
-#       },
-#       {
-#         Effect = "Allow"
-#         Principal = {
-#           Service = "cloudtrail.amazonaws.com"
-#         }
-#         Action = "s3:GetBucketAcl"
-#         Resource = aws_s3_bucket.regtech_iac.arn
-#       }
-#     ]
-#   })
-# }
 
 resource "aws_s3_bucket_policy" "regtech_iac_policy" {
   bucket = aws_s3_bucket.regtech_iac.id

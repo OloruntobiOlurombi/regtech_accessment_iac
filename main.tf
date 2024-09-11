@@ -10,35 +10,35 @@ terraform {
 
 # Provides an EC2 instance resource
 
-data "aws_ami" "amazon-linux-2" {
- most_recent = true
+# data "aws_ami" "amazon-linux-2" {
+#  most_recent = true
 
 
- filter {
-   name   = "owner-alias"
-   values = ["amazon"]
- }
+#  filter {
+#    name   = "owner-alias"
+#    values = ["amazon"]
+#  }
 
 
- filter {
-   name   = "name"
-   values = ["amzn2-ami-hvm*"]
- }
-}
+#  filter {
+#    name   = "name"
+#    values = ["amzn2-ami-hvm*"]
+#  }
+# }
 
 # Provides a EC2 Instance for Control plane
 
-resource "aws_instance" "control_plane" {
- depends_on = [aws_internet_gateway.igw]
+# resource "aws_instance" "control_plane" {
+#  depends_on = [aws_internet_gateway.igw]
 
- ami                         = "${data.aws_ami.amazon-linux-2.id}"
- instance_type               = var.instance_type
- associate_public_ip_address = true
- iam_instance_profile        = aws_iam_instance_profile.ec2_instance_profile.name
- key_name                    = "bastion"
- vpc_security_group_ids      = ["${aws_security_group.main_sg.id}"]
- subnet_id                   = "${aws_subnet.public_subnet_1.id}"
-}
+#  ami                         = "${data.aws_ami.amazon-linux-2.id}"
+#  instance_type               = var.instance_type
+#  associate_public_ip_address = true
+#  iam_instance_profile        = aws_iam_instance_profile.ec2_instance_profile.name
+#  key_name                    = "bastion"
+#  vpc_security_group_ids      = ["${aws_security_group.main_sg.id}"]
+#  subnet_id                   = "${aws_subnet.public_subnet_1.id}"
+# }
 
 # Provides an EKS Cluster
 resource "aws_eks_cluster" "eks_cluster" {
