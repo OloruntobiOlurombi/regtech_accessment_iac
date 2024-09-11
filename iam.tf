@@ -181,7 +181,7 @@ resource "aws_iam_role" "cloudtrail_role" {
 
 resource "aws_iam_role_policy_attachment" "cloudtrail_policy_attachment" {
   role       = aws_iam_role.cloudtrail_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCloudTrail_FullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AWSCloudTrail_FullAccess"
 }
 
 
