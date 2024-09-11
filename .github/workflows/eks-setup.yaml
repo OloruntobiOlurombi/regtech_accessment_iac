@@ -82,7 +82,7 @@ jobs:
         chmod 600 /tmp/private_key
 
     - name: Wait for EC2 Instance to be Ready
-      run: sleep 100 
+      run: sleep 10
 
     - name: Print Environment Variables
       run: |
