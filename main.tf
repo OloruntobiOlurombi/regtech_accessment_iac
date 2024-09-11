@@ -51,6 +51,13 @@ resource "aws_eks_cluster" "eks_cluster" {
     subnet_ids = [aws_subnet.public_subnet_1.id, aws_subnet.public_subnet_2.id, aws_subnet.public_subnet_3.id]
   }
 
+  encryption_config {
+    provider {
+      key_arn = aws_kms_key.eks_encryption_key.arn
+    }
+    resources = ["secrets"]
+  }
+
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
@@ -85,6 +92,29 @@ resource "aws_eks_node_group" "eks_node_group" {
     aws_iam_role_policy_attachment.ec2_container_registry_readonly,
   ]
 }
+
+# Extra resources 
+resource "aws_ebs_volume" "volume_regtech"{
+    availability_zone = var.az_a
+    size = 40
+    encrypted = true
+    type = "gp2"
+    kms_key_id        = aws_kms_key.ebs_encryption_key.arn
+}
+
+resource "aws_s3_bucket" "regtech_iac" {
+  bucket = var.bucket_name
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+        kms_master_key_id = aws_kms_key.s3_encryption_key.arn
+      }
+    }
+  }
+}
+
 
 # OutPut Resources
 output "endpoint" {
