@@ -137,7 +137,7 @@ resource "aws_iam_role_policy_attachment" "eks_describe_cluster_policy_attachmen
 # IAM Role for CloudWatch 
 
 resource "aws_iam_role" "cloudwatch_role" {
-  name = "cloudwatch_role"
+  name = "cloudwatch_role_log"
 
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
@@ -162,7 +162,7 @@ resource "aws_iam_role_policy_attachment" "cloudwatch_policy_attachment" {
 # IAM Role for CloudTrail
 
 resource "aws_iam_role" "cloudtrail_role" {
-  name = "cloudtrail_role"
+  name = "cloudtrail_role_log"
 
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",

@@ -10,7 +10,7 @@ variable "region" {
 
 variable "bucket_name" {
     type = string 
-    default = "terraform-state-bucket-tobi"
+    default = "regtech-logs"
 }
 
 variable "aws_access_key_id" {
@@ -160,7 +160,7 @@ variable "main_sg_description" {
 
 variable "ec2_instance_role_name" {
     type = string 
-    default = "ec2-instance-role"
+    default = "ec2-instance-role_log"
 }
 
 variable "ec2_instance_profile" {
@@ -170,15 +170,15 @@ variable "ec2_instance_profile" {
 
 variable "eks_cluster_role_name" {
     type = string 
-    default = "eksclusterrole-2"
+    default = "eksclusterrole_log"
 }
 
 variable "eks_node_group_role_name" {
     type = string 
-    default = "eks-node-group-role"
+    default = "eks-node-group-role_log"
 }
 
 variable "eks_describe_cluster_policy_name" {
     type = string 
-    default = "eks-describe-cluster-policy"
+    default = "eks-describe-cluster-policy_log"
 }
