@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_group" "eks_log_group" {
 }
 
 resource "aws_cloudtrail" "security_trail" {
-  name                          = "security-trail"
+  name                          = "security-trail-log"
   s3_bucket_name                = aws_s3_bucket.regtech_iac.bucket
   include_global_service_events = true
   is_multi_region_trail         = true

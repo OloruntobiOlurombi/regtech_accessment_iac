@@ -108,7 +108,7 @@ resource "aws_iam_role_policy_attachment" "ec2_container_registry_readonly" {
 }
 
 resource "aws_iam_instance_profile" "eks_node_instance_profile" {
-    name = var.ec2_instance_profile
+    name = var.eks_node_group_profile
     role = aws_iam_role.eks_node_group_role.name
 }
 
@@ -223,6 +223,39 @@ resource "aws_kms_key" "s3_encryption_key" {
 resource "aws_kms_key" "eks_encryption_key" {
   description = "KMS key for EKS secret encryption"
 }
+
+
+resource "aws_s3_bucket_policy" "regtech_iac_policy" {
+  bucket = aws_s3_bucket.regtech_iac.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudtrail.amazonaws.com"
+        }
+        Action = "s3:PutObject"
+        Resource = "${aws_s3_bucket.regtech_iac.arn}/*"
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudtrail.amazonaws.com"
+        }
+        Action = "s3:GetBucketAcl"
+        Resource = aws_s3_bucket.regtech_iac.arn
+      }
+    ]
+  })
+}
+
 
 
 # resource "aws_kms_key" "ebs_encryption_key" {
