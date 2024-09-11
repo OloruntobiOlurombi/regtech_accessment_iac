@@ -119,7 +119,6 @@ jobs:
           else
             echo "kubectl already installed"
           fi
-
           kubectl version --client
           aws eks update-kubeconfig --region us-east-1 --name EKSCluster
         EOF
