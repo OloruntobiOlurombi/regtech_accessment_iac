@@ -174,6 +174,11 @@ variable "eks_node_group_role_name" {
     default = "eks-node-group-role_log"
 }
 
+variable "eks_node_group_volume_policy_name" {
+    type = string 
+    default = "eks-node-group-volume-policy"
+}
+
 variable "eks_describe_cluster_policy_name" {
     type = string 
     default = "eks-describe-cluster-policy_log"
