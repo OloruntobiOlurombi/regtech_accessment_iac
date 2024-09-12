@@ -82,6 +82,10 @@ resource "aws_iam_role_policy" "eks_node_group_volume_policy" {
       {
         "Effect": "Allow",
         "Action": [
+          "ec2:CreateTags",
+          "ec2:DescribeTags",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeVolumeStatus",
           "ec2:CreateVolume",
           "ec2:AttachVolume"
         ],
