@@ -42,7 +42,7 @@ jobs:
     - name: Plan Terraform
       run: terraform plan
 
-  TerraformApply-InstallTools:
+  TerraformApply:
     runs-on: ubuntu-latest
     needs: TerraformPlan
     steps:
